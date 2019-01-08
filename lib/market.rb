@@ -1,6 +1,8 @@
+require 'pry'
 class Market
   attr_reader :name,
-              :vendors
+              :vendors,
+              :total_inventory
 
   def initialize(name)
     @name = name
@@ -37,13 +39,40 @@ class Market
   end
 
   def total_inventory
-    total_inventory = Hash.new(0)
+    @total_inventory = Hash.new(0)
     @vendors.each do |vendor|
       vendor.inventory.each do |item, quantity|
-        total_inventory[item] += quantity
+        @total_inventory[item] += quantity
       end
     end
-    total_inventory
+    @total_inventory
+  end
+
+  def sell(item, quantity)
+    # binding.pry
+    if quantity > @total_inventory[item]
+      return false
+    else
+      sell_item(item,quantity)
+      return true
+    end
+  end
+
+  def sell_item(item, quantity)
+    vendor_array = vendors_that_sell(item)
+    vendor_array.each do |vendor|
+      if quantity > vendor.inventory[item]
+        quantity -= vendor.inventory[item]
+        vendor.inventory[item] = 0
+      elsif
+        quantity < vendor.inventory[item]
+        quantity_diff = vendor.inventory[item] - quantity
+        # binding.pry
+        quantity = 0
+        vendor.inventory[item] = quantity_diff
+      end
+      # binding.pry
+    end
   end
 
 end
