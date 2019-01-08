@@ -27,4 +27,23 @@ class Market
     vendor_item_array
   end
 
+  def sorted_item_list
+    unsorted_item_list = []
+    @vendors.each do |vendor|
+      unsorted_item_list << vendor.inventory.keys
+    end
+    sorted_item_list = unsorted_item_list.flatten.uniq
+    sorted_item_list.sort
+  end
+
+  def total_inventory
+    total_inventory = Hash.new(0)
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        total_inventory[item] += quantity
+      end
+    end
+    total_inventory
+  end
+
 end
