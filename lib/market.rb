@@ -60,7 +60,7 @@ class Market
   def sell_item(item, quantity)
     vendor_array = vendors_that_sell(item)
     vendor_array.each do |vendor|
-      if quantity > vendor.inventory[item]
+      if quantity >= vendor.inventory[item]
         quantity -= vendor.inventory[item]
         vendor.inventory[item] = 0
       elsif
