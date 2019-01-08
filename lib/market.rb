@@ -49,7 +49,6 @@ class Market
   end
 
   def sell(item, quantity)
-    # binding.pry
     if quantity > @total_inventory[item]
       return false
     else
@@ -67,11 +66,9 @@ class Market
       elsif
         quantity < vendor.inventory[item]
         quantity_diff = vendor.inventory[item] - quantity
-        # binding.pry
         quantity = 0
         vendor.inventory[item] = quantity_diff
       end
-      # binding.pry
     end
   end
 

@@ -137,7 +137,7 @@ class MarketTest < Minitest::Test
     assert_equal false, market.sell("Onions", 1)
   end
 
-  def test_it_can_sell_items
+  def test_it_can_sell_items_and_reduce_stock
     market = Market.new("South Pearl Street Farmers Market")
     vendor_1 = Vendor.new("Rocky Mountain Fresh")
     vendor_1.stock("Peaches", 35)
@@ -152,12 +152,10 @@ class MarketTest < Minitest::Test
     market.add_vendor(vendor_3)
     market.total_inventory
 
-    market.sell("Banana Nice Cream", 5)
-
+    assert_equal true, market.sell("Banana Nice Cream", 5)
     assert_equal 45, vendor_2.check_stock("Banana Nice Cream")
 
-    market.sell("Peaches", 40
-    )
+    assert_equal true, market.sell("Peaches", 40)
     assert_equal 0, vendor_1.check_stock("Peaches")
     assert_equal 60, vendor_3.check_stock("Peaches")
   end
