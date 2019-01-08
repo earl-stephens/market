@@ -53,8 +53,25 @@ class Market
     if quantity > @total_inventory[item]
       return false
     else
-      # sell_item(item,quantity)
+      sell_item(item,quantity)
       return true
+    end
+  end
+
+  def sell_item(item, quantity)
+    vendor_array = vendors_that_sell(item)
+    vendor_array.each do |vendor|
+      if quantity > vendor.inventory[item]
+        quantity -= vendor.inventory[item]
+        vendor.inventory[item] = 0
+      elsif
+        quantity < vendor.inventory[item]
+        quantity_diff = vendor.inventory[item] - quantity
+        # binding.pry
+        quantity = 0
+        vendor.inventory[item] = quantity_diff
+      end
+      # binding.pry
     end
   end
 
