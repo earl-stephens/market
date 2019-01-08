@@ -27,4 +27,13 @@ class Market
     vendor_item_array
   end
 
+  def sorted_item_list
+    unsorted_item_list = []
+    @vendors.each do |vendor|
+      unsorted_item_list << vendor.inventory.keys
+    end
+    sorted_item_list = unsorted_item_list.flatten.uniq
+    sorted_item_list.sort
+  end
+
 end
